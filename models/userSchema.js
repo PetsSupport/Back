@@ -1,12 +1,11 @@
-const { Schema, model } = require("mongoose");
-const Joi = require("joi");
+const { Schema, model } = require('mongoose');
+const Joi = require('joi');
 
-const { handleSaveErrors } = require("../helpers");
+const { handleSaveErrors } = require('../helpers');
 const passRegexp = /^(?=.{7,32}$)([0-9A-Za-z])*$/;
 const nameRegexp = /^(?=.{2,16}$)([A-Za-z])*$/;
 const phoneRegexp = /^\+38(0\d{9})$/;
-const dateRegExp =
-  /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
+const dateRegExp = /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
 // eslint-disable-next-line no-useless-escape
 const emailRegexp =
   // eslint-disable-next-line no-useless-escape
@@ -44,28 +43,28 @@ const userSchema = new Schema(
     },
     accessToken: {
       type: String,
-      default: "",
+      default: '',
     },
     refreshToken: {
       type: String,
-      default: "",
+      default: '',
     },
     avatarURL: {
       type: String,
       default:
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
     },
     birthday: {
       type: String,
       match: dateRegExp,
-      default: "",
+      default: '',
     },
-    favorite: [{ type: Schema.Types.ObjectId, ref: "notice" }],
+    favorite: [{ type: Schema.Types.ObjectId, ref: 'notice' }],
   },
   { versionKey: false, timestamps: true }
 );
 
-userSchema.post("save", handleSaveErrors);
+userSchema.post('save', handleSaveErrors);
 
 const registerSchema = Joi.object({
   name: Joi.string().min(1).pattern(nameRegexp).required(),
@@ -100,7 +99,7 @@ const userSchemas = {
   updateUserSchema,
 };
 
-const User = model("user", userSchema);
+const User = model('user', userSchema);
 
 module.exports = {
   User,
